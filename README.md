@@ -52,39 +52,9 @@ it works
 crun could go much lower than that, and require \< 1M. The used 4MB is a
 hard limit set directly in Podman before calling the OCI runtime.
 
-## Dependencies
+## Install
 
-These dependencies are required for the build:
 
-### Fedora
-
-```console
-$ sudo dnf install -y make python git gcc automake autoconf libcap-devel \
-    systemd-devel yajl-devel libseccomp-devel pkg-config libgcrypt-devel \
-    go-md2man glibc-static python3-libmount libtool
-```
-
-### RHEL/CentOS 8
-
-```console
-$ sudo yum --enablerepo='*' --disablerepo='media-*' install -y make automake \
-    autoconf gettext \
-    libtool gcc libcap-devel systemd-devel yajl-devel libgcrypt-devel \
-    glibc-static libseccomp-devel python36 git
-```
-
-go-md2man is not available on RHEL/CentOS 8, so if you'd like to build
-the man page, you also need to manually install go-md2man. It can be
-installed with:
-
-```console
-$ sudo yum --enablerepo='*' install -y golang
-$ export GOPATH=$HOME/go
-$ go get github.com/cpuguy83/go-md2man
-$ export PATH=$PATH:$GOPATH/bin
-```
-
-### Ubuntu
 
 ```console
 $ sudo apt-get install -y make git gcc build-essential pkgconf libtool \
@@ -92,37 +62,7 @@ $ sudo apt-get install -y make git gcc build-essential pkgconf libtool \
    libgcrypt20-dev go-md2man autoconf python3 automake
 ```
 
-### Alpine
 
-```console
-# apk add gcc automake autoconf libtool gettext pkgconf git make musl-dev \
-    python3 libcap-dev libseccomp-dev yajl-dev argp-standalone go-md2man
-```
-
-### Tumbleweed
-
-```console
-# zypper install make automake autoconf gettext libtool gcc libcap-devel \
-systemd-devel libyajl-devel libseccomp-devel python3 go-md2man \
-glibc-static;
-```
-
-Note that Tumbleweed requires you to specify libseccomp's header file location
-as a compiler flag.
-
-```console
-# ./autogen.sh
-# ./configure CFLAGS='-I/usr/include/libseccomp'
-# make
-```
-
-## Build
-
-Unless you are also building the Python bindings, Python is needed only
-by libocispec to generate the C parser at build time, it won't be used
-afterwards.
-
-Once all the dependencies are installed:
 
 ```console
 $ ./autogen.sh
